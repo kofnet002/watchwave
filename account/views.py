@@ -32,12 +32,13 @@ def home(request):
     return Response({
         'detail': 'Welcome to the Watch~wave~',
         'endpoints':[{
+            'get all vidoes - [GET]' : '/api/v1/vid/',
             'home - [GET]' : '/api/v1/home',
+            'all users - [GET]' : '/api/v1/auth/users/',
             'register - [POST]' : '/api/v1/auth/users/',
             'activate acount - [POST]' : '/api/v1/auth/users/activation/',
             'login - [POST]' : '/api/v1/auth/jwt/create/',
             'login - [POST]' : '/auth/jwt/create/',
-            'all users - [GET]' : '/api/v1/auth/users/',
             'password reset request - [POST]' : '/api/v1/auth/users/reset_password/',
             'password reset request - [POST]' : '/api/v1/auth/users/reset_password_confirm/',
         }
