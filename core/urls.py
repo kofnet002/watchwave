@@ -26,5 +26,6 @@ urlpatterns = [
     path('api/v1/auth/', include('djoser.urls')),
     path('api/v1/auth/', include('djoser.urls.jwt')),
     path('api/v1/', include('account.urls')),
+    path('api/v1/', include('video.urls')),
     path('auth/jwt/create/', CustomTokenObtainPairView.as_view(), name='custom_jwt_create')
 ]
