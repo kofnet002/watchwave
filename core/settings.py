@@ -145,25 +145,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'account.User'
 
 # Twilio SendGrid
-# EMAIL_HOST = 'smtp.sendgrid.net'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = 'apikey'
-# EMAIL_HOST_PASSWORD = config('SENDGRID_API_KEY')
-# # The email you'll be sending emails from
-# DEFAULT_FROM_EMAIL = 'noeljoel61@gmail.com'
-# LOGIN_REDIRECT_URL = 'success'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = config('SENDGRID_API_KEY')
+# The email you'll be sending emails from
+DEFAULT_FROM_EMAIL = 'noeljoel61@gmail.com'
+LOGIN_REDIRECT_URL = 'success'
 
 
 # EMAIL CONFIGURATIONS
-EMAIL_BACKEND = config('EMAIL_BACKEND')
-MAILER_EMAIL_BACKEND = config('EMAIL_BACKEND')
-EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_PORT = 456
-EMAIL_USE_SSL = True
-DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER')
+# EMAIL_BACKEND = config('EMAIL_BACKEND')
+# MAILER_EMAIL_BACKEND = config('EMAIL_BACKEND')
+# EMAIL_HOST = config('EMAIL_HOST')
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+# EMAIL_PORT = 456
+# EMAIL_USE_SSL = True
+# DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER')
 
 
 # REST FRAMEWORK CONFIGURATIONS

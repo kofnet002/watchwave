@@ -29,7 +29,21 @@ def check_username_exists(request):
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def home(request):
-    return Response({'detail': 'Welcome to the Watch~wave~'}, status=status.HTTP_200_OK)
+    return Response({
+        'detail': 'Welcome to the Watch~wave~',
+        'endpoints':[{
+            'home - [GET]' : '/api/v1/home',
+            'register - [POST]' : '/api/v1/auth/users/',
+            'activate acount - [POST]' : '/api/v1/auth/users/activation/',
+            'login - [POST]' : '/api/v1/auth/jwt/create/',
+            'login - [POST]' : '/auth/jwt/create/',
+            'all users - [GET]' : '/api/v1/auth/users/',
+            'password reset request - [POST]' : '/api/v1/auth/users/reset_password/',
+            'password reset request - [POST]' : '/api/v1/auth/users/reset_password_confirm/',
+        }
+        ]
+        }, 
+        status=status.HTTP_200_OK)
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):

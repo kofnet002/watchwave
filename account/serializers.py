@@ -21,9 +21,11 @@ class UserCreateSerializer(BaseUserCreateSerializer):
 # Append the data below when user gets user details @ 'users/me/', 'users'
 class UserSerializer(BaseUserSerializer):
     class Meta(BaseUserCreateSerializer.Meta):
-        fields = ['id', 'first_name',
-                  'last_name', 'email',
-                  'username',
+        fields = ['id', 
+                  'first_name',
+                  'last_name', 
+                  'email',
+                #   'username',
                   'is_active',
                   'is_deactivated',
                   ]
