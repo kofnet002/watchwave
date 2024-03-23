@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 class User(AbstractUser):
     email = models.EmailField(unique=True)
-    # username = models.EmailField(unique=True, blank=True, null=True)
+    username = models.CharField(unique=True, max_length=100)
     is_deactivated = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
 
