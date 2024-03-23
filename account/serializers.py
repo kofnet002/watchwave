@@ -25,7 +25,7 @@ class UserSerializer(BaseUserSerializer):
                   'first_name',
                   'last_name', 
                   'email',
-                #   'username',
+                  'username',
                   'is_active',
                   'is_deactivated',
                   ]

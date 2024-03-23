@@ -10,6 +10,10 @@ import cloudinary.uploader
 import cloudinary.api
 from decouple import config
 from .models import Video
+from rest_framework.pagination import PageNumberPagination
+from django.conf import settings
+
+
 
 if not config('CLOUDINARY_API_SECRET'):
     raise Exception('CLOUDINARY_API_SECRET environment variable is not set.')
@@ -25,16 +29,17 @@ cloudinary.config(
 
 class VideoView(APIView):
     def get(self, request):
-        videos = Video.objects.all()
-        video_serializer = VideoSerializer(videos, many=True)
-        if video_serializer:
-            return Response({
-                'success': True,
-                'data': video_serializer.data
-            })
-        return Response({
-            'success': False,
-            'data': video_serializer.errors
+        paginator = PageNumberPagination()
+        # paginator.page_size = 1
+        paginator.page_size = getattr(settings, 'PAGE_SIZE', 1)
+
+        videos = Video.objects.order_by('id')  # Order the queryset by id
+        result_page = paginator.paginate_queryset(videos, request)
+        video_serializer = VideoSerializer(result_page, many=True)
+        
+        return paginator.get_paginated_response({
+            'success': True,
+            'data': video_serializer.data
         })
     
 
@@ -132,7 +137,6 @@ class VideoView(APIView):
                 resource_type="video",
                 public_id=public_id)
             
-        print('res', res)
         return res['secure_url']
 
 
@@ -149,4 +153,3 @@ class VideoView(APIView):
 # def detail(request, video_id):
 #     video = get_object_or_404(Video, pk=video_id)
 #     return render(request, 'videos/index.html', {'video': video})
-
