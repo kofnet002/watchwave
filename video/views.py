@@ -12,6 +12,9 @@ from decouple import config
 from .models import Video
 from rest_framework.pagination import PageNumberPagination
 from django.conf import settings
+from rest_framework import status
+from drf_spectacular.utils import extend_schema
+
 
 
 
@@ -26,8 +29,8 @@ cloudinary.config(
 )
 
 
-
 class VideoView(APIView):
+    @extend_schema(responses=VideoSerializer(many=True))
     def get(self, request):
         paginator = PageNumberPagination()
         # paginator.page_size = 1
@@ -42,7 +45,7 @@ class VideoView(APIView):
             'data': video_serializer.data
         })
     
-
+    @extend_schema(request=VideoSerializer, responses={200: VideoSerializer})
     def post(self, request):
         if request.method == "POST":
 
@@ -153,3 +156,16 @@ class VideoView(APIView):
 # def detail(request, video_id):
 #     video = get_object_or_404(Video, pk=video_id)
 #     return render(request, 'videos/index.html', {'video': video})
+
+@extend_schema(responses=VideoSerializer)
+class SingleVideo(APIView):
+    def get_object(self, id):
+        try:
+            return Video.objects.get(id=id)
+        except Video.DoesNotExist:
+            raise Response("Object not found")
+
+    def get(self, request, id):
+        video = self.get_object(id)
+        serializer = VideoSerializer(video)
+        return Response(serializer.data, status=status.HTTP_200_OK)

@@ -29,7 +29,8 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+CORS_ALLOWED_ORIGINS = ['http://localhost:3000',]
 
 
 # Application definition
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'account.apps.AccountConfig',
     'video.apps.VideoConfig',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -154,7 +156,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'apikey'
 EMAIL_HOST_PASSWORD = config('SENDGRID_API_KEY')
 # The email you'll be sending emails from
-DEFAULT_FROM_EMAIL = 'noeljoel61@gmail.com'
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 LOGIN_REDIRECT_URL = 'success'
 
 
@@ -182,13 +184,16 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 
 # SIMPLE JWT SETTINGS CONFIGURATION
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=20)
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=20),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=25),
+
 }
 
 # DJOSER CONFIGURATION
@@ -198,6 +203,7 @@ DJOSER = {
         'user_create': 'account.serializers.UserCreateSerializer',
         'user': 'account.serializers.UserSerializer',
         'current_user': 'account.serializers.UserSerializer',
+        'password_reset_confirm': 'account.serializers.CustomPasswordResetConfirmSerializer',
     },
     'SEND_ACTIVATION_EMAIL': True,
     'ACTIVATION_URL': 'auth/activate/?uid={uid}&token={token}',
@@ -205,8 +211,8 @@ DJOSER = {
     'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
 }
 
-SITE_NAME = 'Watch~wave~'
-DOMAIN = 'localhost:3000'
+SITE_NAME = config('SITE_NAME')
+DOMAIN = config('DOMAIN')
 
 # Set Cloudinary configuration
 CLOUDINARY_STORAGE = {
@@ -216,3 +222,18 @@ CLOUDINARY_STORAGE = {
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'WatchWave API Documentation',
+    'DESCRIPTION': 'API for a video platform',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'CONTACT' : {
+        'name': 'Kofi Frimpong',
+        'email': 'noeljoel61@gmail.com',
+        'url': 'https://kofnet.vercel.app'
+    },
+    # 'SERVERS': [
+    #     {'url': 'http://127.0.0.1:8000', 'description': 'Local server'},
+    # ]
+}

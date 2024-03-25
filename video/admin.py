@@ -4,7 +4,7 @@ from .models import Video
 
 # Register your models here.
 class CustomUserAdmin(admin.ModelAdmin):
-    list_display = ('title', 'description', 'video_url', 'created_at', 'updated_at')
+    list_display = ('id', 'title', 'description', 'video_url', 'created_at', 'updated_at')
 
 
 

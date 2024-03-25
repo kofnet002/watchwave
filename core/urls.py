@@ -17,9 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from account.views import CustomTokenObtainPairView
+from account.views import CustomTokenRefreshView
+from decouple import config
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
-admin.site.site_header = "Watch~wave~"
+
+admin.site.site_header = config('ADMIN_SITE_HEADER')
 admin.site.index_title = "Admin"
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,5 +32,10 @@ urlpatterns = [
     path('api/v1/auth/', include('djoser.urls.jwt')),
     path('api/v1/', include('account.urls')),
     path('api/v1/', include('video.urls')),
-    path('auth/jwt/create/', CustomTokenObtainPairView.as_view(), name='custom_jwt_create')
+    path('auth/jwt/create/', CustomTokenObtainPairView.as_view(), name='custom_jwt_create'),
+    path('auth/jwt/refresh/', CustomTokenRefreshView.as_view(), name='token_refresh'),
+
+    path('apischema/', SpectacularAPIView.as_view(), name='schema'),
+    path('apidoc/', SpectacularSwaggerView.as_view(url_name='schema')),
+    # path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]

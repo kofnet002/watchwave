@@ -2,6 +2,7 @@ from djoser.serializers import UserCreateSerializer as BaseUserCreateSerializer,
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.exceptions import ValidationError
 from django.contrib.auth import get_user_model
+from djoser.serializers import PasswordResetConfirmSerializer
 
 
 user = get_user_model()
@@ -10,11 +11,11 @@ user = get_user_model()
 class UserCreateSerializer(BaseUserCreateSerializer):
     class Meta(BaseUserCreateSerializer.Meta):
         fields = ['id', 
+                  'email',
                   'username', 
-                  'password', 
-                  'first_name', 
-                  'last_name',
-                  'email'
+                  'password',
+                  'is_active',
+                  'is_deactivated',
                 ]
 
 
@@ -22,11 +23,10 @@ class UserCreateSerializer(BaseUserCreateSerializer):
 class UserSerializer(BaseUserSerializer):
     class Meta(BaseUserCreateSerializer.Meta):
         fields = ['id', 
-                  'first_name',
-                  'last_name', 
                   'email',
                   'username',
                   'is_active',
+                #   'password',
                   'is_deactivated',
                   ]
 
@@ -57,12 +57,24 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         data.update({
             'id': obj.id, 
-            'first_name': obj.first_name,
-            'last_name': obj.last_name, 
             'email': obj.email,
             'username': obj.username,
             'is_active': obj.is_active,
             'is_deactivated': obj.is_deactivated,
         })
+        
+        response = {
+            'success': True,
+            'data': data
+        }
+        return response
 
-        return data
+class CustomPasswordResetConfirmSerializer(PasswordResetConfirmSerializer):
+    def save(self):
+        # Call the parent's save method to perform the default behavior
+        super().save()
+        # Customize the response content
+        return {
+            "success": True,
+            "message": "Password reset successful"
+        }
