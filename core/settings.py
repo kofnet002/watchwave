@@ -15,6 +15,8 @@ from decouple import config
 from datetime import timedelta
 import cloudinary
 import cloudinary_storage
+import dj_database_url
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -93,15 +95,24 @@ DATABASES = {
     }
 }
 
+PASSWORD = config('PASSWORD')
+DATABASES['default'] = dj_database_url.config(
+    default=f'postgres://postgres.mmnsfubzyoequbbehhrp:{PASSWORD}@aws-0-eu-central-1.pooler.supabase.com:5432/postgres',
+    conn_max_age=600,
+    conn_health_checks=True,
+)
 
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
+#         'ENGINE': config('DB_ENGINE'),
 #         'NAME': config('DB_NAME'),
+#         'HOST': config('DB_HOST'),
 #         'USER': config('DB_USER'),
 #         'PASSWORD': config('DB_PASSWORD'),
+#         'PORT': config('DB_PORT'),
 #     }
 # }
+
 
 
 

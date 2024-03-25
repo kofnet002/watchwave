@@ -6,6 +6,7 @@ charset-normalizer==3.3.2
 cloudinary==1.39.1
 cryptography==42.0.5
 defusedxml==0.8.0rc2
+dj-database-url==2.1.0
 Django==5.0.3
 django-cloudinary-storage==0.3.0
 django-cors-headers==4.3.1
