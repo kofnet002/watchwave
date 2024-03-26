@@ -190,7 +190,7 @@ LOGIN_REDIRECT_URL = 'success'
 # EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 # EMAIL_PORT = 456
 # EMAIL_USE_SSL = True
-# DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER')
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 # REST FRAMEWORK CONFIGURATIONS
@@ -222,7 +222,7 @@ SIMPLE_JWT = {
 DJOSER = {
     # Overwrite the default djoser serializer with our custom serializer
     'SERIALIZERS': {
-        'user_create': 'account.serializers.UserCreateSerializer',
+        # 'user_create': 'account.serializers.UserCreateSerializer',
         'user': 'account.serializers.UserSerializer',
         'current_user': 'account.serializers.UserSerializer',
         'password_reset_confirm': 'account.serializers.CustomPasswordResetConfirmSerializer',
@@ -231,10 +231,11 @@ DJOSER = {
     'ACTIVATION_URL': 'auth/activate/?uid={uid}&token={token}',
     'PASSWORD_RESET_CONFIRM_URL': 'auth/reset-password/?uid={uid}&token={token}',
     'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
+    'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True
 }
 
 SITE_NAME = config('SITE_NAME')
-DOMAIN = config('DOMAIN')
+DOMAIN = 'mywatchwave.vercel.app'
 
 # Set Cloudinary configuration
 CLOUDINARY_STORAGE = {
