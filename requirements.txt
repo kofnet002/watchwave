@@ -1,13 +1,15 @@
 asgiref==3.8.0
 attrs==23.2.0
+Brotli==1.1.0
 certifi==2024.2.2
 cffi==1.16.0
 charset-normalizer==3.3.2
+click==8.1.7
 cloudinary==1.39.1
 cryptography==42.0.5
 defusedxml==0.8.0rc2
 dj-database-url==2.1.0
-Django==4.2.7
+Django==5.0.3
 django-cloudinary-storage==0.3.0
 django-cors-headers==4.3.1
 django-templated-mail==1.1.1
@@ -16,6 +18,8 @@ djangorestframework-simplejwt==5.3.1
 djoser==2.2.2
 drf-spectacular==0.27.1
 ffmpeg==1.4
+gunicorn==21.2.0
+h11==0.14.0
 idna==3.6
 inflection==0.5.1
 jsonschema==4.21.1
@@ -40,3 +44,5 @@ sqlparse==0.4.4
 typing_extensions==4.10.0
 uritemplate==4.1.1
 urllib3==2.2.1
+uvicorn==0.29.0
+whitenoise==6.6.0
