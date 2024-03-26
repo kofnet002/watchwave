@@ -26,7 +26,6 @@ class UserSerializer(BaseUserSerializer):
                   'email',
                   'username',
                   'is_active',
-                #   'password',
                   'is_deactivated',
                   ]
 
@@ -45,8 +44,15 @@ class UserSerializer(BaseUserSerializer):
             raise ValidationError(
                 'Account not activated')
 
+# Add 'success' field for successful validation
+        validated_attr['success'] = False
+
         return validated_attr
 
+
+    def to_representation(self, instance):
+            representation = super().to_representation(instance)
+            return {'success': True, 'data': representation}
 
 # Append the data below to the access & refresh tokens when user logs in
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):

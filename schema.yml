@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: WatchWave API
+  title: WatchWave API Documentation
   version: 1.0.0
   description: API for a video platform
   contact:
@@ -15,26 +15,26 @@ paths:
         Takes a set of user credentials and returns an access and refresh JSON web
         token pair to prove the authentication of those credentials.
       tags:
-        - api
+      - api
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/TokenObtainPair"
+              $ref: '#/components/schemas/TokenObtainPair'
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/TokenObtainPair"
+              $ref: '#/components/schemas/TokenObtainPair'
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/TokenObtainPair"
+              $ref: '#/components/schemas/TokenObtainPair'
         required: true
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/TokenObtainPair"
-          description: ""
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
   /api/v1/auth/jwt/refresh/:
     post:
       operationId: api_v1_auth_jwt_refresh_create
@@ -42,26 +42,26 @@ paths:
         Takes a refresh type JSON web token and returns an access type JSON web
         token if the refresh token is valid.
       tags:
-        - api
+      - api
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/TokenRefresh"
+              $ref: '#/components/schemas/TokenRefresh'
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/TokenRefresh"
+              $ref: '#/components/schemas/TokenRefresh'
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/TokenRefresh"
+              $ref: '#/components/schemas/TokenRefresh'
         required: true
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/TokenRefresh"
-          description: ""
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
   /api/v1/auth/jwt/verify/:
     post:
       operationId: api_v1_auth_jwt_verify_create
@@ -69,515 +69,515 @@ paths:
         Takes a token and indicates if it is valid.  This view provides no
         information about a token's fitness for a particular use.
       tags:
-        - api
+      - api
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/TokenVerify"
+              $ref: '#/components/schemas/TokenVerify'
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/TokenVerify"
+              $ref: '#/components/schemas/TokenVerify'
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/TokenVerify"
+              $ref: '#/components/schemas/TokenVerify'
         required: true
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/TokenVerify"
-          description: ""
+                $ref: '#/components/schemas/TokenVerify'
+          description: ''
   /api/v1/auth/users/:
     get:
       operationId: api_v1_auth_users_list
       tags:
-        - api
+      - api
       security:
-        - jwtAuth: []
+      - jwtAuth: []
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/User"
-          description: ""
+                  $ref: '#/components/schemas/User'
+          description: ''
     post:
       operationId: api_v1_auth_users_create
       tags:
-        - user
+      - api
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UserCreate"
+              $ref: '#/components/schemas/UserCreate'
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/UserCreate"
+              $ref: '#/components/schemas/UserCreate'
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/UserCreate"
+              $ref: '#/components/schemas/UserCreate'
         required: true
       security:
-        - jwtAuth: []
-        - {}
+      - jwtAuth: []
+      - {}
       responses:
-        "201":
+        '201':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/UserCreate"
-          description: ""
+                $ref: '#/components/schemas/UserCreate'
+          description: ''
   /api/v1/auth/users/{id}/:
     get:
       operationId: api_v1_auth_users_retrieve
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          description: A unique integer value identifying this user.
-          required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this user.
+        required: true
       tags:
-        - api
+      - api
       security:
-        - jwtAuth: []
+      - jwtAuth: []
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
-          description: ""
+                $ref: '#/components/schemas/User'
+          description: ''
     put:
       operationId: api_v1_auth_users_update
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          description: A unique integer value identifying this user.
-          required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this user.
+        required: true
       tags:
-        - api
+      - api
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/User"
+              $ref: '#/components/schemas/User'
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/User"
+              $ref: '#/components/schemas/User'
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/User"
+              $ref: '#/components/schemas/User'
         required: true
       security:
-        - jwtAuth: []
+      - jwtAuth: []
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
-          description: ""
+                $ref: '#/components/schemas/User'
+          description: ''
     patch:
       operationId: api_v1_auth_users_partial_update
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          description: A unique integer value identifying this user.
-          required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this user.
+        required: true
       tags:
-        - api
+      - api
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PatchedUser"
+              $ref: '#/components/schemas/PatchedUser'
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/PatchedUser"
+              $ref: '#/components/schemas/PatchedUser'
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/PatchedUser"
+              $ref: '#/components/schemas/PatchedUser'
       security:
-        - jwtAuth: []
+      - jwtAuth: []
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
-          description: ""
+                $ref: '#/components/schemas/User'
+          description: ''
     delete:
       operationId: api_v1_auth_users_destroy
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          description: A unique integer value identifying this user.
-          required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this user.
+        required: true
       tags:
-        - api
+      - api
       security:
-        - jwtAuth: []
+      - jwtAuth: []
       responses:
-        "204":
+        '204':
           description: No response body
   /api/v1/auth/users/activation/:
     post:
       operationId: api_v1_auth_users_activation_create
       tags:
-        - api
+      - api
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Activation"
+              $ref: '#/components/schemas/Activation'
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/Activation"
+              $ref: '#/components/schemas/Activation'
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/Activation"
+              $ref: '#/components/schemas/Activation'
         required: true
       security:
-        - jwtAuth: []
-        - {}
+      - jwtAuth: []
+      - {}
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Activation"
-          description: ""
+                $ref: '#/components/schemas/Activation'
+          description: ''
   /api/v1/auth/users/me/:
     get:
       operationId: api_v1_auth_users_me_retrieve
       tags:
-        - api
+      - api
       security:
-        - jwtAuth: []
+      - jwtAuth: []
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
-          description: ""
-    # put:
-    #   operationId: api_v1_auth_users_me_update
-    #   tags:
-    #     - api
-    #   requestBody:
-    #     content:
-    #       application/json:
-    #         schema:
-    #           $ref: "#/components/schemas/User"
-    #       application/x-www-form-urlencoded:
-    #         schema:
-    #           $ref: "#/components/schemas/User"
-    #       multipart/form-data:
-    #         schema:
-    #           $ref: "#/components/schemas/User"
-    #     required: true
-    #   security:
-    #     - jwtAuth: []
-    #   responses:
-    #     "200":
-    #       content:
-    #         application/json:
-    #           schema:
-    #             $ref: "#/components/schemas/User"
-    #       description: ""
-    # patch:
-    #   operationId: api_v1_auth_users_me_partial_update
-    #   tags:
-    #     - api
-    #   requestBody:
-    #     content:
-    #       application/json:
-    #         schema:
-    #           $ref: "#/components/schemas/PatchedUser"
-    #       application/x-www-form-urlencoded:
-    #         schema:
-    #           $ref: "#/components/schemas/PatchedUser"
-    #       multipart/form-data:
-    #         schema:
-    #           $ref: "#/components/schemas/PatchedUser"
-    #   security:
-    #     - jwtAuth: []
-    #   responses:
-    #     "200":
-    #       content:
-    #         application/json:
-    #           schema:
-    #             $ref: "#/components/schemas/User"
-    #       description: ""
-    # delete:
-    #   operationId: api_v1_auth_users_me_destroy
-    #   tags:
-    #     - api
-    #   security:
-    #     - jwtAuth: []
-    #   responses:
-    #     "204":
-    #       description: No response body
+                $ref: '#/components/schemas/User'
+          description: ''
+    put:
+      operationId: api_v1_auth_users_me_update
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    patch:
+      operationId: api_v1_auth_users_me_partial_update
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    delete:
+      operationId: api_v1_auth_users_me_destroy
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
   /api/v1/auth/users/resend_activation/:
     post:
       operationId: api_v1_auth_users_resend_activation_create
       tags:
-        - api
+      - api
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SendEmailReset"
+              $ref: '#/components/schemas/SendEmailReset'
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/SendEmailReset"
+              $ref: '#/components/schemas/SendEmailReset'
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/SendEmailReset"
+              $ref: '#/components/schemas/SendEmailReset'
         required: true
       security:
-        - jwtAuth: []
-        - {}
+      - jwtAuth: []
+      - {}
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SendEmailReset"
-          description: ""
+                $ref: '#/components/schemas/SendEmailReset'
+          description: ''
   /api/v1/auth/users/reset_email/:
     post:
       operationId: api_v1_auth_users_reset_email_create
       tags:
-        - api
+      - api
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SendEmailReset"
+              $ref: '#/components/schemas/SendEmailReset'
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/SendEmailReset"
+              $ref: '#/components/schemas/SendEmailReset'
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/SendEmailReset"
+              $ref: '#/components/schemas/SendEmailReset'
         required: true
       security:
-        - jwtAuth: []
-        - {}
+      - jwtAuth: []
+      - {}
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SendEmailReset"
-          description: ""
+                $ref: '#/components/schemas/SendEmailReset'
+          description: ''
   /api/v1/auth/users/reset_email_confirm/:
     post:
       operationId: api_v1_auth_users_reset_email_confirm_create
       tags:
-        - api
+      - api
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UsernameResetConfirm"
+              $ref: '#/components/schemas/UsernameResetConfirm'
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/UsernameResetConfirm"
+              $ref: '#/components/schemas/UsernameResetConfirm'
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/UsernameResetConfirm"
+              $ref: '#/components/schemas/UsernameResetConfirm'
         required: true
       security:
-        - jwtAuth: []
-        - {}
+      - jwtAuth: []
+      - {}
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/UsernameResetConfirm"
-          description: ""
+                $ref: '#/components/schemas/UsernameResetConfirm'
+          description: ''
   /api/v1/auth/users/reset_password/:
     post:
       operationId: api_v1_auth_users_reset_password_create
       tags:
-        - api
+      - api
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SendEmailReset"
+              $ref: '#/components/schemas/SendEmailReset'
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/SendEmailReset"
+              $ref: '#/components/schemas/SendEmailReset'
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/SendEmailReset"
+              $ref: '#/components/schemas/SendEmailReset'
         required: true
       security:
-        - jwtAuth: []
-        - {}
+      - jwtAuth: []
+      - {}
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SendEmailReset"
-          description: ""
+                $ref: '#/components/schemas/SendEmailReset'
+          description: ''
   /api/v1/auth/users/reset_password_confirm/:
     post:
       operationId: api_v1_auth_users_reset_password_confirm_create
       tags:
-        - api
+      - api
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CustomPasswordResetConfirm"
+              $ref: '#/components/schemas/CustomPasswordResetConfirm'
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/CustomPasswordResetConfirm"
+              $ref: '#/components/schemas/CustomPasswordResetConfirm'
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/CustomPasswordResetConfirm"
+              $ref: '#/components/schemas/CustomPasswordResetConfirm'
         required: true
       security:
-        - jwtAuth: []
-        - {}
+      - jwtAuth: []
+      - {}
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CustomPasswordResetConfirm"
-          description: ""
+                $ref: '#/components/schemas/CustomPasswordResetConfirm'
+          description: ''
   /api/v1/auth/users/set_email/:
     post:
       operationId: api_v1_auth_users_set_email_create
       tags:
-        - api
+      - api
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SetUsername"
+              $ref: '#/components/schemas/SetUsername'
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/SetUsername"
+              $ref: '#/components/schemas/SetUsername'
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/SetUsername"
+              $ref: '#/components/schemas/SetUsername'
         required: true
       security:
-        - jwtAuth: []
+      - jwtAuth: []
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SetUsername"
-          description: ""
+                $ref: '#/components/schemas/SetUsername'
+          description: ''
   /api/v1/auth/users/set_password/:
     post:
       operationId: api_v1_auth_users_set_password_create
       tags:
-        - api
+      - api
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SetPassword"
+              $ref: '#/components/schemas/SetPassword'
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/SetPassword"
+              $ref: '#/components/schemas/SetPassword'
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/SetPassword"
+              $ref: '#/components/schemas/SetPassword'
         required: true
       security:
-        - jwtAuth: []
+      - jwtAuth: []
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SetPassword"
-          description: ""
+                $ref: '#/components/schemas/SetPassword'
+          description: ''
   /api/v1/videos/:
     get:
       operationId: api_v1_videos_list
       tags:
-        - api
+      - api
       security:
-        - jwtAuth: []
+      - jwtAuth: []
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Video"
-          description: ""
+                  $ref: '#/components/schemas/Video'
+          description: ''
     post:
       operationId: api_v1_videos_create
       tags:
-        - api
+      - api
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Video"
+              $ref: '#/components/schemas/Video'
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/Video"
+              $ref: '#/components/schemas/Video'
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/Video"
+              $ref: '#/components/schemas/Video'
         required: true
       security:
-        - jwtAuth: []
+      - jwtAuth: []
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Video"
-          description: ""
+                $ref: '#/components/schemas/Video'
+          description: ''
   /api/v1/videos/{id}/:
     get:
       operationId: api_v1_videos_retrieve
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
       tags:
-        - api
+      - api
       security:
-        - jwtAuth: []
+      - jwtAuth: []
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Video"
-          description: ""
+                $ref: '#/components/schemas/Video'
+          description: ''
   /auth/jwt/create/:
     post:
       operationId: auth_jwt_create_create
@@ -585,26 +585,26 @@ paths:
         Takes a set of user credentials and returns an access and refresh JSON web
         token pair to prove the authentication of those credentials.
       tags:
-        - auth
+      - auth
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CustomTokenObtainPair"
+              $ref: '#/components/schemas/CustomTokenObtainPair'
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/CustomTokenObtainPair"
+              $ref: '#/components/schemas/CustomTokenObtainPair'
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/CustomTokenObtainPair"
+              $ref: '#/components/schemas/CustomTokenObtainPair'
         required: true
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CustomTokenObtainPair"
-          description: ""
+                $ref: '#/components/schemas/CustomTokenObtainPair'
+          description: ''
   /auth/jwt/refresh/:
     post:
       operationId: auth_jwt_refresh_create
@@ -612,26 +612,26 @@ paths:
         Takes a refresh type JSON web token and returns an access type JSON web
         token if the refresh token is valid.
       tags:
-        - auth
+      - auth
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/TokenRefresh"
+              $ref: '#/components/schemas/TokenRefresh'
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/TokenRefresh"
+              $ref: '#/components/schemas/TokenRefresh'
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/TokenRefresh"
+              $ref: '#/components/schemas/TokenRefresh'
         required: true
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/TokenRefresh"
-          description: ""
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
 components:
   schemas:
     Activation:
@@ -642,8 +642,8 @@ components:
         token:
           type: string
       required:
-        - token
-        - uid
+      - token
+      - uid
     CustomPasswordResetConfirm:
       type: object
       properties:
@@ -654,9 +654,9 @@ components:
         new_password:
           type: string
       required:
-        - new_password
-        - token
-        - uid
+      - new_password
+      - token
+      - uid
     CustomTokenObtainPair:
       type: object
       properties:
@@ -667,8 +667,8 @@ components:
           type: string
           writeOnly: true
       required:
-        - email
-        - password
+      - email
+      - password
     PatchedUser:
       type: object
       properties:
@@ -695,7 +695,7 @@ components:
           type: string
           format: email
       required:
-        - email
+      - email
     SetPassword:
       type: object
       properties:
@@ -704,8 +704,8 @@ components:
         current_password:
           type: string
       required:
-        - current_password
-        - new_password
+      - current_password
+      - new_password
     SetUsername:
       type: object
       properties:
@@ -717,8 +717,8 @@ components:
           title: Email
           maxLength: 254
       required:
-        - current_password
-        - new_email
+      - current_password
+      - new_email
     TokenObtainPair:
       type: object
       properties:
@@ -735,10 +735,10 @@ components:
           type: string
           readOnly: true
       required:
-        - access
-        - email
-        - password
-        - refresh
+      - access
+      - email
+      - password
+      - refresh
     TokenRefresh:
       type: object
       properties:
@@ -749,8 +749,8 @@ components:
           type: string
           writeOnly: true
       required:
-        - access
-        - refresh
+      - access
+      - refresh
     TokenVerify:
       type: object
       properties:
@@ -758,7 +758,7 @@ components:
           type: string
           writeOnly: true
       required:
-        - token
+      - token
     User:
       type: object
       properties:
@@ -779,9 +779,9 @@ components:
           type: boolean
           default: false
       required:
-        - email
-        - id
-        - username
+      - email
+      - id
+      - username
     UserCreate:
       type: object
       properties:
@@ -805,10 +805,10 @@ components:
           type: boolean
           default: false
       required:
-        - email
-        - id
-        - password
-        - username
+      - email
+      - id
+      - password
+      - username
     UsernameResetConfirm:
       type: object
       properties:
@@ -818,7 +818,7 @@ components:
           title: Email
           maxLength: 254
       required:
-        - new_email
+      - new_email
     Video:
       type: object
       properties:
@@ -836,9 +836,9 @@ components:
           nullable: true
           maxLength: 200
       required:
-        - description
-        - id
-        - title
+      - description
+      - id
+      - title
   securitySchemes:
     jwtAuth:
       type: http
