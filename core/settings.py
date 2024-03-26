@@ -31,8 +31,8 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.vercel.app', 'now.sh']
-CORS_ALLOWED_ORIGINS = ['http://localhost:3000',]
+ALLOWED_HOSTS = ['.vercel.app','now.sh','127.0.0.1','localhost',]
+CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'https://mywatchwave.vercel.app']
 
 
 # Application definition
@@ -153,9 +153,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'static/'
+STATICFILES_DIR = BASE_DIR / 'static'
+STATIC_ROOT = BASE_DIR / 'staticfiles_build/static'
 MEDIA_URLS ='/media/'
-MEDIA_ROOT = BASE_DIR / 'medai/'
+MEDIA_ROOT = BASE_DIR / 'media/'
 
 if not DEBUG:
     # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)

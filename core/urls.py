@@ -20,7 +20,8 @@ from account.views import CustomTokenObtainPairView
 from account.views import CustomTokenRefreshView
 from decouple import config
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 admin.site.site_header = config('ADMIN_SITE_HEADER')
 admin.site.index_title = "Admin"
@@ -39,3 +40,6 @@ urlpatterns = [
     path('apidoc/', SpectacularSwaggerView.as_view(url_name='schema')),
     # path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
