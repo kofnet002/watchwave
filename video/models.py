@@ -1,10 +1,12 @@
 from django.db import models
 from cloudinary.models import CloudinaryField
+import uuid
 
 
 
 # Create your models here.
 class Video(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     title = models.CharField(max_length=100)
     description = models.TextField()
     video = models.FileField()
