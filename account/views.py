@@ -52,7 +52,7 @@ User = get_user_model()
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
-    parser_classes = (MultiPartParser, FormParser, FileUploadParser)
+    # parser_classes = (MultiPartParser, FormParser, FileUploadParser,)
     @extend_schema(
             responses=UserSerializer,
             tags=['Auth'],
@@ -74,7 +74,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
 # Overwrite the TokenRefreshView to return custom response
 class CustomTokenRefreshView(TokenRefreshView):
-    parser_classes = (MultiPartParser, FormParser, FileUploadParser)
+    # parser_classes = (MultiPartParser, FormParser, FileUploadParser)
     @extend_schema(
             responses=CustomTokenObtainPairSerializer,
             tags=['Auth'],

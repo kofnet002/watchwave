@@ -15,6 +15,7 @@ class UserCreateSerializer(BaseUserCreateSerializer):
                   'username', 
                   'password',
                   'is_active',
+                  'is_admin',
                   'is_deactivated',
                 ]
 
@@ -25,6 +26,7 @@ class UserSerializer(BaseUserSerializer):
         fields = ['id', 
                   'email',
                   'username',
+                  'is_admin',
                   'is_active',
                   'is_deactivated',
                   ]
@@ -66,6 +68,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
             'email': obj.email,
             'username': obj.username,
             'is_active': obj.is_active,
+            'is_admin': obj.is_admin,
             'is_deactivated': obj.is_deactivated,
         })
         
