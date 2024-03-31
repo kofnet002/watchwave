@@ -7,9 +7,10 @@ from rest_framework import status
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .serializers import CustomTokenObtainPairSerializer, UserSerializer
 from drf_spectacular.utils import extend_schema
-
+from rest_framework.parsers import MultiPartParser, FileUploadParser, FormParser
 
 User = get_user_model()
+
 
 # @api_view(['POST'])
 # @permission_classes([AllowAny])
@@ -51,7 +52,13 @@ User = get_user_model()
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
-
+    parser_classes = (MultiPartParser, FormParser, FileUploadParser)
+    @extend_schema(
+            responses=UserSerializer,
+            tags=['Auth'],
+            summary='Log in user based on email and password and whether account is active  or deactivated',
+            description='This endpoint checks if the user account is activated or deactivated',
+            )
     def post(self, request, *args, **kwargs):
         try:
             user = User.objects.get(email=request.data.get('email'))
@@ -67,6 +74,13 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
 # Overwrite the TokenRefreshView to return custom response
 class CustomTokenRefreshView(TokenRefreshView):
+    parser_classes = (MultiPartParser, FormParser, FileUploadParser)
+    @extend_schema(
+            responses=CustomTokenObtainPairSerializer,
+            tags=['Auth'],
+            summary='Token Refresh Endpoint',
+            description='This endpoint refreshes the access token',
+            )
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
 

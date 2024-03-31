@@ -37,8 +37,8 @@ urlpatterns = [
     path('auth/jwt/refresh/', CustomTokenRefreshView.as_view(), name='token_refresh'),
 
     path('apischema/', SpectacularAPIView.as_view(), name='schema'),
-    path('apidoc/', SpectacularSwaggerView.as_view(url_name='schema')),
-    # path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    path('', SpectacularSwaggerView.as_view(url_name='schema')),
+    path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

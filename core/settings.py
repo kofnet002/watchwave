@@ -97,6 +97,7 @@ DATABASES = {
 }
 
 PASSWORD = config('PASSWORD')
+
 DATABASES['default'] = dj_database_url.config(
     default=f'postgres://postgres.mmnsfubzyoequbbehhrp:{PASSWORD}@aws-0-eu-central-1.pooler.supabase.com:5432/postgres',
     conn_max_age=600,
@@ -204,6 +205,7 @@ REST_FRAMEWORK = {
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
     ),
 
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',

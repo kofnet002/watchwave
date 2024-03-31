@@ -96,6 +96,7 @@ paths:
       - api
       security:
       - jwtAuth: []
+      - basicAuth: []
       responses:
         '200':
           content:
@@ -123,6 +124,7 @@ paths:
         required: true
       security:
       - jwtAuth: []
+      - basicAuth: []
       - {}
       responses:
         '201':
@@ -138,13 +140,15 @@ paths:
       - in: path
         name: id
         schema:
-          type: integer
-        description: A unique integer value identifying this user.
+          type: string
+          format: uuid
+        description: A UUID string identifying this user.
         required: true
       tags:
       - api
       security:
       - jwtAuth: []
+      - basicAuth: []
       responses:
         '200':
           content:
@@ -158,8 +162,9 @@ paths:
       - in: path
         name: id
         schema:
-          type: integer
-        description: A unique integer value identifying this user.
+          type: string
+          format: uuid
+        description: A UUID string identifying this user.
         required: true
       tags:
       - api
@@ -177,6 +182,7 @@ paths:
         required: true
       security:
       - jwtAuth: []
+      - basicAuth: []
       responses:
         '200':
           content:
@@ -190,8 +196,9 @@ paths:
       - in: path
         name: id
         schema:
-          type: integer
-        description: A unique integer value identifying this user.
+          type: string
+          format: uuid
+        description: A UUID string identifying this user.
         required: true
       tags:
       - api
@@ -208,6 +215,7 @@ paths:
               $ref: '#/components/schemas/PatchedUser'
       security:
       - jwtAuth: []
+      - basicAuth: []
       responses:
         '200':
           content:
@@ -221,13 +229,15 @@ paths:
       - in: path
         name: id
         schema:
-          type: integer
-        description: A unique integer value identifying this user.
+          type: string
+          format: uuid
+        description: A UUID string identifying this user.
         required: true
       tags:
       - api
       security:
       - jwtAuth: []
+      - basicAuth: []
       responses:
         '204':
           description: No response body
@@ -250,6 +260,7 @@ paths:
         required: true
       security:
       - jwtAuth: []
+      - basicAuth: []
       - {}
       responses:
         '200':
@@ -265,6 +276,7 @@ paths:
       - api
       security:
       - jwtAuth: []
+      - basicAuth: []
       responses:
         '200':
           content:
@@ -290,6 +302,7 @@ paths:
         required: true
       security:
       - jwtAuth: []
+      - basicAuth: []
       responses:
         '200':
           content:
@@ -314,6 +327,7 @@ paths:
               $ref: '#/components/schemas/PatchedUser'
       security:
       - jwtAuth: []
+      - basicAuth: []
       responses:
         '200':
           content:
@@ -327,90 +341,10 @@ paths:
       - api
       security:
       - jwtAuth: []
+      - basicAuth: []
       responses:
         '204':
           description: No response body
-  /api/v1/auth/users/resend_activation/:
-    post:
-      operationId: api_v1_auth_users_resend_activation_create
-      tags:
-      - api
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SendEmailReset'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/SendEmailReset'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/SendEmailReset'
-        required: true
-      security:
-      - jwtAuth: []
-      - {}
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SendEmailReset'
-          description: ''
-  /api/v1/auth/users/reset_email/:
-    post:
-      operationId: api_v1_auth_users_reset_email_create
-      tags:
-      - api
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SendEmailReset'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/SendEmailReset'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/SendEmailReset'
-        required: true
-      security:
-      - jwtAuth: []
-      - {}
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SendEmailReset'
-          description: ''
-  /api/v1/auth/users/reset_email_confirm/:
-    post:
-      operationId: api_v1_auth_users_reset_email_confirm_create
-      tags:
-      - api
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UsernameResetConfirm'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/UsernameResetConfirm'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/UsernameResetConfirm'
-        required: true
-      security:
-      - jwtAuth: []
-      - {}
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UsernameResetConfirm'
-          description: ''
   /api/v1/auth/users/reset_password/:
     post:
       operationId: api_v1_auth_users_reset_password_create
@@ -430,6 +364,7 @@ paths:
         required: true
       security:
       - jwtAuth: []
+      - basicAuth: []
       - {}
       responses:
         '200':
@@ -457,6 +392,7 @@ paths:
         required: true
       security:
       - jwtAuth: []
+      - basicAuth: []
       - {}
       responses:
         '200':
@@ -465,65 +401,74 @@ paths:
               schema:
                 $ref: '#/components/schemas/CustomPasswordResetConfirm'
           description: ''
-  /api/v1/auth/users/set_email/:
-    post:
-      operationId: api_v1_auth_users_set_email_create
-      tags:
-      - api
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SetUsername'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/SetUsername'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/SetUsername'
+  /api/v1/next-video/{current_video_id}/:
+    get:
+      operationId: api_v1_next_video_list
+      description: This endpoint returns the next videos in the queue.
+      summary: Get the next video in the queue
+      parameters:
+      - in: path
+        name: current_video_id
+        schema:
+          type: string
+          format: uuid
         required: true
+      tags:
+      - Video
       security:
       - jwtAuth: []
+      - basicAuth: []
       responses:
         '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SetUsername'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Video'
           description: ''
-  /api/v1/auth/users/set_password/:
-    post:
-      operationId: api_v1_auth_users_set_password_create
-      tags:
-      - api
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SetPassword'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/SetPassword'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/SetPassword'
+  /api/v1/previous-video/{current_video_id}/:
+    get:
+      operationId: api_v1_previous_video_list
+      description: This endpoint returns the previous videos in the queue.
+      summary: Get the previous video in the queue
+      parameters:
+      - in: path
+        name: current_video_id
+        schema:
+          type: string
+          format: uuid
         required: true
+      tags:
+      - Video
       security:
       - jwtAuth: []
+      - basicAuth: []
       responses:
         '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SetPassword'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Video'
           description: ''
   /api/v1/videos/:
     get:
       operationId: api_v1_videos_list
+      description: This endpoint returns all videos in the database.
+      summary: Get all videos
+      parameters:
+      - in: query
+        name: page
+        schema:
+          type: integer
+        description: A page number within the paginated result set.
       tags:
-      - api
+      - Video
       security:
       - jwtAuth: []
+      - basicAuth: []
       responses:
         '200':
           content:
@@ -535,24 +480,30 @@ paths:
           description: ''
     post:
       operationId: api_v1_videos_create
+      description: This endpoint allows you to upload a video.
+      summary: Upload a video
       tags:
-      - api
+      - Video
       requestBody:
         content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Video'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Video'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Video'
-        required: true
+              type: object
+              properties:
+                title: {}
+                description: {}
+                video:
+                  type: string
+                  format: binary
+              required:
+              - title
+              - description
+              - video
       security:
       - jwtAuth: []
+      - basicAuth: []
       responses:
-        '200':
+        '201':
           content:
             application/json:
               schema:
@@ -561,6 +512,8 @@ paths:
   /api/v1/videos/{id}/:
     get:
       operationId: api_v1_videos_retrieve
+      description: This endpoint returns a single video by its ID.
+      summary: Get a single video
       parameters:
       - in: path
         name: id
@@ -568,9 +521,10 @@ paths:
           type: string
         required: true
       tags:
-      - api
+      - Video
       security:
       - jwtAuth: []
+      - basicAuth: []
       responses:
         '200':
           content:
@@ -581,22 +535,48 @@ paths:
   /auth/jwt/create/:
     post:
       operationId: auth_jwt_create_create
-      description: |-
-        Takes a set of user credentials and returns an access and refresh JSON web
-        token pair to prove the authentication of those credentials.
+      description: This endpoint checks if the user account is activated or deactivated
+      summary: Log in user based on email and password and whether account is active  or
+        deactivated
       tags:
-      - auth
+      - Auth
       requestBody:
         content:
-          application/json:
+          multipart/form-data:
             schema:
               $ref: '#/components/schemas/CustomTokenObtainPair'
           application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/CustomTokenObtainPair'
-          multipart/form-data:
+          '*/*':
             schema:
               $ref: '#/components/schemas/CustomTokenObtainPair'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /auth/jwt/refresh/:
+    post:
+      operationId: auth_jwt_refresh_create
+      description: This endpoint refreshes the access token
+      summary: Token Refresh Endpoint
+      tags:
+      - Auth
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
         required: true
       responses:
         '200':
@@ -604,33 +584,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CustomTokenObtainPair'
-          description: ''
-  /auth/jwt/refresh/:
-    post:
-      operationId: auth_jwt_refresh_create
-      description: |-
-        Takes a refresh type JSON web token and returns an access type JSON web
-        token if the refresh token is valid.
-      tags:
-      - auth
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TokenRefresh'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/TokenRefresh'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/TokenRefresh'
-        required: true
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TokenRefresh'
           description: ''
 components:
   schemas:
@@ -673,15 +626,16 @@ components:
       type: object
       properties:
         id:
-          type: integer
+          type: string
+          format: uuid
           readOnly: true
         email:
           type: string
           format: email
-          maxLength: 254
+          maxLength: 255
         username:
           type: string
-          maxLength: 100
+          maxLength: 30
         is_active:
           type: boolean
           default: false
@@ -696,29 +650,6 @@ components:
           format: email
       required:
       - email
-    SetPassword:
-      type: object
-      properties:
-        new_password:
-          type: string
-        current_password:
-          type: string
-      required:
-      - current_password
-      - new_password
-    SetUsername:
-      type: object
-      properties:
-        current_password:
-          type: string
-        new_email:
-          type: string
-          format: email
-          title: Email
-          maxLength: 254
-      required:
-      - current_password
-      - new_email
     TokenObtainPair:
       type: object
       properties:
@@ -763,15 +694,16 @@ components:
       type: object
       properties:
         id:
-          type: integer
+          type: string
+          format: uuid
           readOnly: true
         email:
           type: string
           format: email
-          maxLength: 254
+          maxLength: 255
         username:
           type: string
-          maxLength: 100
+          maxLength: 30
         is_active:
           type: boolean
           default: false
@@ -785,45 +717,31 @@ components:
     UserCreate:
       type: object
       properties:
-        id:
-          type: integer
-          readOnly: true
+        username:
+          type: string
+          maxLength: 30
         email:
           type: string
           format: email
-          maxLength: 254
-        username:
+          maxLength: 255
+        id:
           type: string
-          maxLength: 100
+          format: uuid
+          readOnly: true
         password:
           type: string
           writeOnly: true
-        is_active:
-          type: boolean
-          default: false
-        is_deactivated:
-          type: boolean
-          default: false
       required:
       - email
       - id
       - password
       - username
-    UsernameResetConfirm:
-      type: object
-      properties:
-        new_email:
-          type: string
-          format: email
-          title: Email
-          maxLength: 254
-      required:
-      - new_email
     Video:
       type: object
       properties:
         id:
-          type: integer
+          type: string
+          format: uuid
           readOnly: true
         title:
           type: string
@@ -835,11 +753,24 @@ components:
           format: uri
           nullable: true
           maxLength: 200
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
       required:
+      - created_at
       - description
       - id
       - title
+      - updated_at
   securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
     jwtAuth:
       type: http
       scheme: bearer
