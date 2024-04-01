@@ -50,11 +50,11 @@ The activities involved in this project are as follows:
 
 ## Images of the Front End Application
 
-<a href="https://mywatchwave.vercel.app" target="_blank">
-    <img src="" width=100% alt='Front end view'>
+<a href="https://mywatchwave.vercel.app/login" target="_blank">
+    <img src="https://mmnsfubzyoequbbehhrp.supabase.co/storage/v1/object/public/watchwave/Frontend/Screenshot%20from%202024-03-31%2020-31-09.png" width=100% alt='Front end view'>
 </a>
-<a href="https://mywatchwave.vercel.app" target="_blank">
-    <img src="" width=100% alt='Front end view'>
+<a href="https://mywatchwave.vercel.app/login" target="_blank">
+    <img src="https://mmnsfubzyoequbbehhrp.supabase.co/storage/v1/object/public/watchwave/Frontend/Screenshot%20from%202024-03-31%2020-33-17.png" width=100% alt='Front end view'>
 </a>
 
 ## Technologies used for building the system
@@ -67,7 +67,7 @@ The activities involved in this project are as follows:
 - CLOUDINARY_API_KEY
 - CLOUDINARY_API_SECRET
 
-3. I built the <a href="https://mywatchwave.vercel.app" target="_blank">Front end</a> like the `youtube video player`.
+3. I built the <a href="https://mywatchwave.vercel.app/login" target="_blank">Front end</a> like the `youtube video player`.
 
 4. <a href="supabase.com" target="_blank">Supabase</a> for Database management and hosting of static images as well.
 
@@ -163,7 +163,7 @@ CLOUDINARY_API_SECRET = your cloudinary api secret
 
 ## Admin
 
-Since some extra work is being done in the background when uploading videos, the admin dasboard provided by django is not suitable for uploading videos. Instead you can visit <a href="https://mywatchwave.vercel.app/admin">Admin dashboard</a> to upload videos.
+Since some extra work is being done in the background when uploading videos, the admin dasboard provided by django is not suitable for uploading videos. Instead you can visit <a href="https://mywatchwave.vercel.app/login/admin">Admin dashboard</a> to upload videos.
 
 ## Behind the scene when uploading a video
 

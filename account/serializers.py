@@ -3,7 +3,8 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.exceptions import ValidationError
 from django.contrib.auth import get_user_model
 from djoser.serializers import PasswordResetConfirmSerializer
-
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 user = get_user_model()
 
@@ -29,6 +30,7 @@ class UserSerializer(BaseUserSerializer):
                   'is_admin',
                   'is_active',
                   'is_deactivated',
+                  'date_joined'
                   ]
 
     # this is where we send a request to slash me/ or auth/users
@@ -70,6 +72,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
             'is_active': obj.is_active,
             'is_admin': obj.is_admin,
             'is_deactivated': obj.is_deactivated,
+            'data_joined' : obj.date_joined,
         })
         
         response = {
@@ -87,3 +90,15 @@ class CustomPasswordResetConfirmSerializer(PasswordResetConfirmSerializer):
             "success": True,
             "message": "Password reset successful"
         }
+
+
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        # Add custom claims
+        token['is_admin'] = user.is_admin
+
+        return token

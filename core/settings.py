@@ -217,7 +217,7 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
     'ACCESS_TOKEN_LIFETIME': timedelta(days=20),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=25),
-
+    "TOKEN_OBTAIN_SERIALIZER": "account.serializers.MyTokenObtainPairSerializer",
 }
 
 # DJOSER CONFIGURATION
