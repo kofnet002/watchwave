@@ -228,6 +228,7 @@ DJOSER = {
         'user': 'account.serializers.UserSerializer',
         'current_user': 'account.serializers.UserSerializer',
         'password_reset_confirm': 'account.serializers.CustomPasswordResetConfirmSerializer',
+        # 'activation':'account.serializers.CustomActivationSerializer'
     },
     'SEND_ACTIVATION_EMAIL': True,
     'ACTIVATION_URL': 'auth/activate/?uid={uid}&token={token}',
@@ -237,7 +238,8 @@ DJOSER = {
 }
 
 SITE_NAME = config('SITE_NAME')
-DOMAIN = 'mywatchwave.vercel.app'
+DOMAIN = 'localhost:3000'
+# DOMAIN = 'mywatchwave.vercel.app'
 
 # Set Cloudinary configuration
 CLOUDINARY_STORAGE = {

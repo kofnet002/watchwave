@@ -1,10 +1,13 @@
-from djoser.serializers import UserCreateSerializer as BaseUserCreateSerializer, UserSerializer as BaseUserSerializer
+from djoser.serializers import UserCreateSerializer as BaseUserCreateSerializer, UserSerializer as BaseUserSerializer, ActivationSerializer
+
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.exceptions import ValidationError
 from django.contrib.auth import get_user_model
 from djoser.serializers import PasswordResetConfirmSerializer
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework import serializers
+
 
 user = get_user_model()
 
@@ -102,3 +105,22 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['is_admin'] = user.is_admin
 
         return token
+
+# class CustomActivationSerializer(ActivationSerializer):
+#     success = serializers.BooleanField(default=False)
+#     detail = serializers.CharField()
+
+#     def save(self):
+#         try:
+#             self.user.is_active = True
+#             self.user.save()
+#             self.send_email(**self.get_send_email_kwargs(self.user))
+#             return {
+#                 "success": True,
+#                 "detail": "Account activated successfully"
+#             }
+#         except Exception as e:
+#             return {
+#                 "success": False,
+#                 "detail": str(e)
+#             }

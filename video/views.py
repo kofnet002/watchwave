@@ -17,8 +17,9 @@ import tempfile
 from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
 from supabase_py import create_client
 from drf_spectacular.types import OpenApiTypes
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 
-# ... existing code ...
 
 class VideoView(APIView):
     parser_classes = (FormParser, MultiPartParser, FileUploadParser)
@@ -36,6 +37,11 @@ class VideoView(APIView):
             description='This endpoint returns all videos in the database.',
             parameters=[video_parameter]
             )
+    
+    @method_decorator(cache_page(60 * 5))  # Cache for 5 minutes (60 seconds * 5 minutes)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
     def get(self, request):
         paginator = PageNumberPagination()
         paginator.page_size = getattr(settings, 'PAGE_SIZE', 10)
