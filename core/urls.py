@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from djoser.views import UserViewSet
 from account.views import CustomTokenObtainPairView
 from account.views import CustomTokenRefreshView
 from decouple import config
@@ -29,8 +30,17 @@ admin.site.index_title = "Admin"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/auth/', include('djoser.urls')),
-    path('api/v1/auth/', include('djoser.urls.jwt')),
+
+    # path('api/v1/auth/', include('djoser.urls')),
+    # path('api/v1/auth/', include('djoser.urls.jwt')),
+
+    # CUSTOMIZED DJOSER URLS, EXTRACTED THE NEEDES ONES
+    path('api/v1/auth/user/activate/', UserViewSet.as_view({"post": "activation"}), name='activate'),
+    path('api/v1/auth/user/', UserViewSet.as_view({"get": "list"}), name='users'),
+    path('api/v1/auth/user/me/', UserViewSet.as_view({"get": "me"}), name='user'),
+    path('api/v1/auth/reset-password/', UserViewSet.as_view({"post": "reset_password"}), name='reset_password'),
+    path('api/v1/auth/reset-password-confirm/', UserViewSet.as_view({"post": "reset_password_confirm"}), name='reset_password_confirm'),
+
     path('api/v1/', include('account.urls')),
     path('api/v1/', include('video.urls')),
     path('auth/jwt/create/', CustomTokenObtainPairView.as_view(), name='custom_jwt_create'),

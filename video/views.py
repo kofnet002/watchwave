@@ -24,10 +24,16 @@ from django.utils.decorators import method_decorator
 class VideoView(APIView):
     parser_classes = (FormParser, MultiPartParser, FileUploadParser)
     
-    video_parameter = OpenApiParameter(
+    page_parameter = OpenApiParameter(
         name='page',
         location=OpenApiParameter.QUERY,
         description='A page number within the paginated result set.',
+        type=OpenApiTypes.INT
+        )
+    page_size_parameter = OpenApiParameter(
+        name='page_size',
+        location=OpenApiParameter.QUERY,
+        description='A page size within the paginated result set.',
         type=OpenApiTypes.INT
         )
     @extend_schema(
@@ -35,23 +41,30 @@ class VideoView(APIView):
             tags=['Video'],
             summary='Get all videos',
             description='This endpoint returns all videos in the database.',
-            parameters=[video_parameter]
+            parameters=[page_parameter, page_size_parameter]
             )
     
-    @method_decorator(cache_page(60 * 5))  # Cache for 5 minutes (60 seconds * 5 minutes)
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
+    # @method_decorator(cache_page(60 * 5))  # Cache for 5 minutes (60 seconds * 5 minutes)
+    # def dispatch(self, *args, **kwargs):
+    #     return super().dispatch(*args, **kwargs)
 
     def get(self, request):
-        paginator = PageNumberPagination()
-        paginator.page_size = getattr(settings, 'PAGE_SIZE', 10)
+        if request.query_params.get('page_size'):
+            paginator = PageNumberPagination()
+            paginator.page_size = request.query_params.get('page_size')
+        else:
+            paginator = PageNumberPagination()
+            paginator.page_size = getattr(settings, 'PAGE_SIZE', 10)
 
-        videos = Video.objects.order_by('id')  # Order the queryset by id
+        videos = Video.objects.order_by('id') 
         result_page = paginator.paginate_queryset(videos, request)
         video_serializer = VideoSerializer(result_page, many=True)
+
+        total_pages = paginator.page.paginator.num_pages
         
         return paginator.get_paginated_response({
             'success': True,
+            'total_pages': total_pages,
             'data': video_serializer.data
         })
     
@@ -235,12 +248,12 @@ class VideoView(APIView):
             fs.delete(path)
 
 class SingleVideo(APIView):
-    parser_classes = (FormParser, MultiPartParser, FileUploadParser)
+    # parser_classes = (FormParser, MultiPartParser, FileUploadParser)
     def get_object(self, id):
         try:
             return Video.objects.get(id=id)
         except Video.DoesNotExist:
-            raise Response("Object not found")
+            return Response("Video not found")
 
     @extend_schema(
         responses=VideoSerializer,
@@ -267,6 +280,54 @@ class SingleVideo(APIView):
         }
         return Response({'success': True, 'data': data}, status=status.HTTP_200_OK)
     
+
+    @extend_schema(
+        request={
+        'multipart/form-data': {
+            'type': 'object',
+            'properties': {
+                'title': {},
+                'description': {},
+                },
+            'required': ['title', 'description'], 
+            }
+        },
+        responses=VideoSerializer,
+        tags=['Video'],
+        summary='Update a single video',
+        description='This endpoint will update a single video by its ID.',
+        )
+    def put(self, request, id):
+        video = self.get_object(id)
+
+           # Check if 'title' and 'description' are present in the request data
+        if 'title' not in request.data:
+            return Response({'detail': 'Video title is required'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        if 'description' not in request.data:
+            return Response({'detail': 'Video description is required'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        serializer = VideoSerializer(video, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'success': True, 'data': serializer.data})
+        return Response({'success': False, 'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+
+    @extend_schema(
+            responses=VideoSerializer,
+            tags=['Video'],
+            summary='Delete a single video',
+            description='This endpoint delete a single video by its ID.',
+            )
+    def delete(self, request, id):
+        try:
+            video = self.get_object(id)
+            video.delete()
+            return Response({'success': True, 'detail': 'Video deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+        except Video.DoesNotExist:
+            return Response({'success': False, 'detail': 'Video not found'}, status=status.HTTP_404_NOT_FOUND)
+
 class NextVideoAPIView(APIView):
     parser_classes = (FormParser, MultiPartParser, FileUploadParser)
 
