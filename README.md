@@ -1,7 +1,7 @@
 # Video Platform API built with Django Rest Framework
 
 <a href="https://www.django-rest-framework.org/" target="_blank">
-    <img src="https://mmnsfubzyoequbbehhrp.supabase.co/storage/v1/object/public/watchwave/DRF/drf.jpg" width=100% alt='Django rest framework'>
+    <img src="https://mmnsfubzyoequbbehhrp.supabase.co/storage/v1/object/public/watchwave/Backend%20Documentation/IMG_0100.JPG" width=100% alt='Django rest framework'>
 </a>
 
 ### Project is hosted live with the front end on <a href="https://watchwave.vercel.app" target="_blank">watchwave</a>.
@@ -163,7 +163,7 @@ CLOUDINARY_API_SECRET = your cloudinary api secret
 
 ## Admin
 
-Since some extra work is being done in the background when uploading videos, the admin dasboard provided by django is not suitable for uploading videos. Instead you can visit <a href="https://mywatchwave.vercel.app/login/admin">Admin dashboard</a> to upload videos.
+Since some extra work is being done in the background when uploading videos, the admin dasboard provided by django is not suitable for uploading videos. Instead you can visit <a href="https://mywatchwave.vercel.app/dashboard">Admin dashboard</a> to upload videos.
 
 ## Behind the scene when uploading a video
 

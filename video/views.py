@@ -153,17 +153,17 @@ class VideoView(APIView):
                             'created_at': video_instance.created_at,
                             'updated_at': video_instance.updated_at
                         }
-                        }, status=201)
+                        }, status=status.HTTP_201_CREATED)
 
                 except Exception as e:
                     print(e, file=sys.stderr)
                     fs.delete(filename)
-                    return Response({'detail': "An error occurred while processing the video."}, status=500)
+                    return Response({'detail': "An error occurred while processing the video."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
                 finally:
                     self.cleanup_files(fs, filename, output_path)
 
             else:
-                return Response(form_serializer.errors, status=400)
+                return Response(form_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
      # Add a method to check if the uploaded file is a video
@@ -253,7 +253,10 @@ class SingleVideo(APIView):
         try:
             return Video.objects.get(id=id)
         except Video.DoesNotExist:
-            return Response("Video not found")
+            return Response({
+                "success": False,
+                "detail": "Video not found"
+            })
 
     @extend_schema(
         responses=VideoSerializer,
@@ -310,7 +313,7 @@ class SingleVideo(APIView):
         serializer = VideoSerializer(video, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({'success': True, 'data': serializer.data})
+            return Response({'success': True, 'data': serializer.data}, status=status.HTTP_200_OK)
         return Response({'success': False, 'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -359,7 +362,7 @@ class NextVideoAPIView(APIView):
                     'current_index': current_video_index,  # Add current video index
                     'total_count': all_videos,
                 }
-                return Response({'success': True, 'data': data})
+                return Response({'success': True, 'data': data}, status=status.HTTP_200_OK)
             else:
                 return Response({'success': False, 'detail': 'No next video'}, status=status.HTTP_404_NOT_FOUND)
         except (Video.DoesNotExist, ValueError):
@@ -392,7 +395,7 @@ class PreviousVideoAPIView(APIView):
                     'video_url': serializer.data['video_url'],
                     'current_index': current_video_index,  # Add current video index
                 }
-                return Response({'success': True, 'data': data})
+                return Response({'success': True, 'data': data}, status=status.HTTP_200_OK)
             else:
                 return Response({'success': False, 'detail': 'No previous video'}, status=status.HTTP_404_NOT_FOUND)
         except (Video.DoesNotExist, ValueError):

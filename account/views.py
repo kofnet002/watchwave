@@ -49,11 +49,11 @@ class CustomTokenRefreshView(TokenRefreshView):
             serializer.is_valid(raise_exception=True)
         except Exception as e:
             # If an exception occurs, return response with success=False
-            return Response({'success': False, 'detail': str(e)}, status=400)
+            return Response({'success': False, 'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
         # If the serializer is valid, perform token refresh
         refresh = serializer.validated_data
-        return Response({'success': True, 'data': refresh}, status=200)
+        return Response({'success': True, 'data': refresh}, status=status.HTTP_200_OK)
 
 
 

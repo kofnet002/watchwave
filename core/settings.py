@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1','localhost', 'watchwave-watchwave.koyeb.app',]
 CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'https://mywatchwave.vercel.app', 'https://watchwave-watchwave.koyeb.app',]
@@ -238,8 +238,8 @@ DJOSER = {
 }
 
 SITE_NAME = config('SITE_NAME')
-DOMAIN = 'localhost:3000'
-# DOMAIN = 'mywatchwave.vercel.app'
+# DOMAIN = 'localhost:3000'
+DOMAIN = 'mywatchwave.vercel.app'
 
 # Set Cloudinary configuration
 CLOUDINARY_STORAGE = {
@@ -262,5 +262,6 @@ SPECTACULAR_SETTINGS = {
     },
     # 'SERVERS': [
     #     {'url': 'http://127.0.0.1:8000', 'description': 'Local server'},
+    #     {'url': 'https://watchwave-watchwave.koyeb.app', 'description': 'Production server'},
     # ]
 }
