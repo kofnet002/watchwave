@@ -186,9 +186,9 @@ class VideoView(APIView):
     def upload_to_cloudinary(self, file, filename, is_file_path=False):
         # Set up paths
         video_path = file if is_file_path else None
-        path = f"videos/{filename}"  # Example path: videos/yourfilename
-        public_id = f"{path}/{filename}"  # Example public_id: videos/yourfilename
-        previews_path = f"{path}/previews/"  # Example path: videos/yourfilename/previews
+        path = f"videos/{filename}" 
+        public_id = f"{path}/{filename}" 
+        previews_path = f"{path}/previews/" 
 
         # Upload video to Cloudinary
         if is_file_path:
@@ -214,7 +214,7 @@ class VideoView(APIView):
         subprocess.run([
             'ffmpeg',
             '-i', video_path,
-            '-vf', 'fps=1/10 scale=120:-1', # Extract 1 frame per 10 seconds
+            '-vf', 'fps=1/10,scale=120:-1', # Extract 1 frame per 10 seconds
             os.path.join(output_folder, 'image_%d.jpg')
         ])
         

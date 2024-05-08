@@ -36,8 +36,8 @@ urlpatterns = [
 
     # CUSTOMIZED DJOSER URLS, EXTRACTED THE NEEDES ONES
     path('api/v1/auth/user/activate/', UserViewSet.as_view({"post": "activation"}), name='activate'),
-    path('api/v1/auth/user/', UserViewSet.as_view({"get": "list"}), name='users'),
-    path('api/v1/auth/user/me/', UserViewSet.as_view({"get": "me"}), name='user'),
+    path('api/v1/auth/users/', UserViewSet.as_view({"get": "list"}), name='users'),
+    path('api/v1/auth/users/me/', UserViewSet.as_view({"get": "me"}), name='user'),
     path('api/v1/auth/reset-password/', UserViewSet.as_view({"post": "reset_password"}), name='reset_password'),
     path('api/v1/auth/reset-password-confirm/', UserViewSet.as_view({"post": "reset_password_confirm"}), name='reset_password_confirm'),
 
