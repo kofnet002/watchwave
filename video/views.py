@@ -119,7 +119,6 @@ class VideoView(APIView):
 
                 fs = FileSystemStorage()
                 filename = fs.save(video_file.name, video_file)
-                input_path = fs.path(filename)
 
                 name, ext = os.path.splitext(filename)
                 output_path = fs.path(name + "_preview" + ext)
