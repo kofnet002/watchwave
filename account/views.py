@@ -15,6 +15,16 @@ class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
     # parser_classes = (MultiPartParser, FormParser, FileUploadParser,)
     @extend_schema(
+            request={
+            'multipart/form-data': {
+                'type': 'object',
+                'properties': {
+                    'email': {},
+                    'password': {},
+                    },
+                'required': ['email', 'password'], 
+                }
+            },
             responses=UserSerializer,
             tags=['Auth'],
             summary='Log in user based on email and password and whether account is active  or deactivated',
@@ -37,6 +47,15 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 class CustomTokenRefreshView(TokenRefreshView):
     # parser_classes = (MultiPartParser, FormParser, FileUploadParser)
     @extend_schema(
+            request={
+            'multipart/form-data': {
+                'type': 'object',
+                'properties': {
+                    'refresh': {},
+                    },
+                'required': ['refresh'], 
+                }
+            },
             responses=CustomTokenObtainPairSerializer,
             tags=['Auth'],
             summary='Token Refresh Endpoint',

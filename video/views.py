@@ -94,6 +94,12 @@ class VideoView(APIView):
     def post(self, request):
         if request.method == "POST":
 
+            if not request.user.is_admin:
+                return Response({
+                    'sucess': False,
+                    'detail': "You do not have permission to perform this action."
+                }, status=status.HTTP_403_FORBIDDEN)
+            
             form_serializer = VideoSerializer(data=request.data)
 
             if form_serializer.is_valid():
