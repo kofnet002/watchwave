@@ -31,7 +31,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost', 'watchwave-watchwave.koyeb.app', 'watchwave-bbb50edab371.herokuapp.com/']
+ALLOWED_HOSTS = ['127.0.0.1','localhost', 'watchwave-watchwave.koyeb.app', 'watchwave-bbb50edab371.herokuapp.com']
 CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'https://mywatchwave.vercel.app', 'https://watchwave-watchwave.koyeb.app', 'https://watchwave-bbb50edab371.herokuapp.com']
 
 
