@@ -159,7 +159,7 @@ CLOUDINARY_API_SECRET = your cloudinary api secret
     python3 manage runserver
 ```
 
-`Open your broswer and then visit http:127.0.0.1:8000` or `localhost:8000`
+`Open your broswer and then visit http://127.0.0.1:8000` or `localhost:8000`
 
 ## Admin
 
