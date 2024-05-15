@@ -138,7 +138,8 @@ class VideoView(APIView):
                     video_data = {
                         'title': video_title,
                         'description': video_description,
-                        'video_url': full_video_url  # Use the Cloudinary URL here
+                        'video_url': full_video_url,  # Use the Cloudinary URL here
+                        'user': request.user
                     }
 
                     video_instance = Video.objects.create(**video_data)
