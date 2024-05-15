@@ -161,7 +161,7 @@ class VideoView(APIView):
                         }, status=status.HTTP_201_CREATED)
 
                 except Exception as e:
-                    print(e, file=sys.stderr)
+                    print('------------------------------', e, file=sys.stderr)
                     fs.delete(filename)
                     return Response({'detail': "An error occurred while processing the video."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
                 finally:
