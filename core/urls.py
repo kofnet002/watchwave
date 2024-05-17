@@ -43,8 +43,8 @@ urlpatterns = [
 
     path('api/v1/', include('account.urls')),
     path('api/v1/', include('video.urls')),
-    path('auth/jwt/create/', CustomTokenObtainPairView.as_view(), name='custom_jwt_create'),
-    path('auth/jwt/refresh/', CustomTokenRefreshView.as_view(), name='token_refresh'),
+    path('api/v1/auth/jwt/create/', CustomTokenObtainPairView.as_view(), name='custom_jwt_create'),
+    path('api/v1/auth/jwt/refresh/', CustomTokenRefreshView.as_view(), name='token_refresh'),
 
     path('apischema/', SpectacularAPIView.as_view(), name='schema'),
     path('', SpectacularSwaggerView.as_view(url_name='schema')),
