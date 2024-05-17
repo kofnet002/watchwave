@@ -163,10 +163,10 @@ class VideoView(APIView):
 
                 except Exception as e:
                     print('------------------------------', e, file=sys.stderr)
-                    fs.delete(filename)
+                    self.cleanup_files(fs, filename, output_path)
                     return Response({'detail': "An error occurred while processing the video."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-                # finally:
-                #     self.cleanup_files(fs, filename, output_path)
+                finally:
+                    self.cleanup_files(fs, filename, output_path)
 
             else:
                 return Response(form_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -250,8 +250,9 @@ class VideoView(APIView):
         print("*" * 20)
 
     def cleanup_files(self, fs, *file_paths):
-        for path in file_paths:
-            fs.delete(path)
+        if file_paths:
+            for path in file_paths:
+                fs.delete(path)
 
 class SingleVideo(APIView):
     # parser_classes = (FormParser, MultiPartParser, FileUploadParser)

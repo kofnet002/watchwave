@@ -7,7 +7,7 @@ from account.models import User
 class Video(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=255)
     description = models.TextField()
     video_url = models.URLField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
