@@ -173,25 +173,23 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'account.User'
 
 # Twilio SendGrid
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = config('SENDGRID_API_KEY')
-# The email you'll be sending emails from
-DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
-LOGIN_REDIRECT_URL = 'success'
-
+# EMAIL_HOST = 'smtp.sendgrid.net'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'apikey'
+# EMAIL_HOST_PASSWORD = config('SENDGRID_API_KEY')
+# # The email you'll be sending emails from
+# DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+# LOGIN_REDIRECT_URL = 'success'
 
 # EMAIL CONFIGURATIONS
-# EMAIL_BACKEND = config('EMAIL_BACKEND')
-# MAILER_EMAIL_BACKEND = config('EMAIL_BACKEND')
-# EMAIL_HOST = config('EMAIL_HOST')
-# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-# EMAIL_PORT = 456
-# EMAIL_USE_SSL = True
-# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_HOST_PASSWORD = config('_EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = 'noeljoel61@gmail.com'
+EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL='Watchwave <no-reply@watchwave.com>'
 
 
 # REST FRAMEWORK CONFIGURATIONS
@@ -231,15 +229,15 @@ DJOSER = {
         # 'activation':'account.serializers.CustomActivationSerializer'
     },
     'SEND_ACTIVATION_EMAIL': True,
-    'ACTIVATION_URL': 'auth/activate/?uid={uid}&token={token}',
-    'PASSWORD_RESET_CONFIRM_URL': 'auth/reset-password/?uid={uid}&token={token}',
+    'ACTIVATION_URL': 'api/v1/auth/activate/?uid={uid}&token={token}',
+    'PASSWORD_RESET_CONFIRM_URL': 'api/v1/auth/reset-password/?uid={uid}&token={token}',
     'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
     'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True
 }
 
 SITE_NAME = config('SITE_NAME')
-# DOMAIN = 'localhost:3000'
-DOMAIN = 'mywatchwave.vercel.app'
+DOMAIN = 'localhost:3000'
+# DOMAIN = 'mywatchwave.vercel.app'
 
 # Set Cloudinary configuration
 CLOUDINARY_STORAGE = {

@@ -148,11 +148,15 @@ ADMIN_SITE_HEADER = 'WatchWave' # Head on the admin dashboard
 
 DOMAIN = 'mywatchwave.vercel.app' # Frontend domain without the domain
 
-SENDGRID_API_KEY = <your sendgrid api key # For sending emails>
 
+================ EMAIL CONFIGURATION ===================
+Create an app from Gmail and get the app password
+
+_EMAIL_HOST_PASSWORD = <your Gmail app password # For sending emails>
 DEFAULT_FROM_EMAIL = <your account to send the mail from  # eg. abc@xyz.com>
 
 
+================ CLOUDINARY CONFIGURATION ===================
 CLOUDINARY_CLOUD_NAME = your cloudinary cloud name
 CLOUDINARY_API_KEY= your cloudinary api key
 CLOUDINARY_API_SECRET = your cloudinary api secret
