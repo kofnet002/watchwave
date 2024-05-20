@@ -229,8 +229,8 @@ DJOSER = {
         # 'activation':'account.serializers.CustomActivationSerializer'
     },
     'SEND_ACTIVATION_EMAIL': True,
-    'ACTIVATION_URL': 'api/v1/auth/activate/?uid={uid}&token={token}',
-    'PASSWORD_RESET_CONFIRM_URL': 'api/v1/auth/reset-password/?uid={uid}&token={token}',
+    'ACTIVATION_URL': 'auth/activate/?uid={uid}&token={token}',
+    'PASSWORD_RESET_CONFIRM_URL': 'auth/reset-password/?uid={uid}&token={token}',
     'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
     'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True
 }
