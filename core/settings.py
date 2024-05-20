@@ -236,8 +236,8 @@ DJOSER = {
 }
 
 SITE_NAME = config('SITE_NAME')
-DOMAIN = 'localhost:3000'
-# DOMAIN = 'mywatchwave.vercel.app'
+DOMAIN = 'mywatchwave.vercel.app'
+# DOMAIN = 'localhost:3000'
 
 # Set Cloudinary configuration
 CLOUDINARY_STORAGE = {
