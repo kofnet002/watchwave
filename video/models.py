@@ -9,7 +9,7 @@ class Video(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     title = models.CharField(max_length=255)
     description = models.TextField()
-    video_url = models.URLField(blank=True, null=True)
+    video_url = models.URLField(blank=True, null=True, max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
