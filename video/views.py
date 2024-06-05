@@ -310,6 +310,12 @@ class SingleVideo(APIView):
     def put(self, request, id):
         video = self.get_object(id)
 
+        if not request.user.is_admin:
+                return Response({
+                    'sucess': False,
+                    'detail': "You do not have permission to perform this action."
+                }, status=status.HTTP_403_FORBIDDEN)
+
            # Check if 'title' and 'description' are present in the request data
         if 'title' not in request.data:
             return Response({'detail': 'Video title is required'}, status=status.HTTP_400_BAD_REQUEST)
@@ -333,6 +339,13 @@ class SingleVideo(APIView):
     def delete(self, request, id):
         try:
             video = self.get_object(id)
+            
+            if not request.user.is_admin:
+                return Response({
+                    'sucess': False,
+                    'detail': "You do not have permission to perform this action."
+                }, status=status.HTTP_403_FORBIDDEN)
+            
             video.delete()
             return Response({'success': True, 'detail': 'Video deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
         except Video.DoesNotExist:

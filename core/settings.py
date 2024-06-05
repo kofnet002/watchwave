@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import sys
 from decouple import config
 from datetime import timedelta
 import cloudinary
@@ -89,6 +90,16 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+if sys.argv:
+   DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:',  # For testing purposes
+        'ATOMIC_REQUESTS': True,
+        }
+    }
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -96,6 +107,7 @@ DATABASES = {
     }
 }
 
+    
 PASSWORD = config('PASSWORD')
 
 DATABASES['default'] = dj_database_url.config(
@@ -232,7 +244,9 @@ DJOSER = {
     'ACTIVATION_URL': 'auth/activate/?uid={uid}&token={token}',
     'PASSWORD_RESET_CONFIRM_URL': 'auth/reset-password/?uid={uid}&token={token}',
     'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
-    'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True
+    'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
+    'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
+    'LOGOUT_ON_PASSWORD_CHANGE': True
 }
 
 SITE_NAME = config('SITE_NAME')
@@ -246,7 +260,7 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': config('CLOUDINARY_API_SECRET')
 }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'WatchWave API Documentation',
